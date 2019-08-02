@@ -16,7 +16,7 @@
   <% end %>
 </ul>
 
-<h3>Users that commented on this post:</h3>
+<h3>Add Comment:</h3>
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label :content %><br>
