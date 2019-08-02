@@ -1,24 +1,42 @@
 <h1><%= @post.title %></h1>
+
+<h3> Categories:
+  <% @post.categories.each do |c| %>
+    <%= c.name %>
+  <% end %>
+</h3>
+
 <p><%= @post.content %></p>
 
-<p>Categories: <%= @post.categories.collect{|c| c.name}.join(", ") %></p>
-
-<%= form_for Comment.new do |f| %>
-  <%= f.label :content %>
-  <%= f.text_area :content %>
-  <%= f.hidden_field :post_id, value: @post.id %>
-  <br>
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
-  <%= f.fields_for :user_attributes, User.new do |u| %>
-    <%= u.label :username %>
-    <%= u.text_field :username %>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= "#{comment.user.username} says: #{comment.content}" %>
+    </li>
   <% end %>
-  <%= f.submit "Create Comment"%>
+</ul>
+
+<h3>Add Comment:</h3>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.label :content %><br>
+  <%= f.text_area(:content, size: '50x10') %><br><br>
+  <%= f.label "Select a User" %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
+
+  <%= f.fields_for :user, @post.users.build do |user_form| %>
+    <%= user_form.label :username %><br>
+    <%= user_form.text_field :username %><br><br>
+  <% end %>
+
+  <%= f.submit %>
 <% end %>
 
-<% @post.comments.each do |comment| %>
-  <%= "#{comment.user.username} says: #{comment.content}" %><br>
-<% end %>
-<% @post.users.uniq.each do |user| %>
-  <%= link_to user.username, user_path(user) %><br>
+<h3>Commenters</h3>
+<% if !@post.commentors.empty? %>
+  <ul>
+    <% @post.commentors.each do |commentor| %>
+      <li><%= link_to commentor.username, user_path(commentor) %></li>
+    <% end %>
+  </ul>
 <% end %>
