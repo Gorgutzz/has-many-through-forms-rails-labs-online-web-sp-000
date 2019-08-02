@@ -13,9 +13,9 @@
   <%= f.text_area :content %>
   <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
-  <%= f.fields_for :user_attributes, User.new do |u| %>
-    <%= u.label :username %>
-    <%= u.text_field :username %>
+  <%= f.fields_for :user_attributes, User.new do |user| %>
+    <%= user.label :username %>
+    <%= user.text_field :username %>
   <% end %>
   <%= f.submit "Create Comment"%>
 <% end %>
