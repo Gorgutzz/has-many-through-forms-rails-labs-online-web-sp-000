@@ -15,3 +15,13 @@
     </li>
   <% end %>
 </ul>
+
+
+<h3>Users that commented on this post:</h3>
+<ul>
+  <% @post.unique_users.each do |user| %>
+    <li>
+      <%= link_to user.username, user_path(user) %>
+    </li>
+  <% end %>
+</ul>
