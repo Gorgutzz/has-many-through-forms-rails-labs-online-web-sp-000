@@ -8,15 +8,13 @@
 
 <p><%= @post.content %></p>
 
-<ul>
-  <% @post.comments.each do |comment| %>
-    <li>
-      <%= "#{comment.user.username} says: #{comment.content}" %>
-    </li>
-  <% end %>
-</ul>
+<% @post.comments.each do |comment| %>
+  <p><%= comment.user.username if !comment.user.nil? %> says: <%= comment.content %>
+  </p>
+<% end %><br>
 
-<h3>Add Comment:</h3>
+<h5>Add a comment to this post:</h5>
+
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label :content %><br>
