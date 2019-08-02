@@ -1,7 +1,6 @@
-<h1><%= @user.username %>'s Homepage</h1>
-<h3>Posts with comments</h3>
+<h1><%= @user.username %></h1>
+<h2><%= @user.email %></h2>
 
 <% @user.comments.each do |comment| %>
-  <%= link_to comment.post.title, post_path(comment.post.id) %>
-
+  <%= link_to comment.post.title, post_path(comment.post) %><br>
 <% end %>
