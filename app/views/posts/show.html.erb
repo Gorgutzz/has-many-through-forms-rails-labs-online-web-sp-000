@@ -8,7 +8,10 @@
 
 <p><%= @post.content %></p>
 
-<% @post.comments.each do |comment| %>
-  <p><%= comment.user.username if !comment.user.nil? %> says: <%= comment.content %>
-  </p>
-<% end %><br>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= "#{comment.user.username} says: #{comment.content}" %>
+    </li>
+  <% end %>
+</ul>
